@@ -6,60 +6,31 @@ typedef struct node{
     struct node * next;
 } llNode;
 
-
-int getLast(llNode * header)
+void push(llNode** h, int data)
 {
-    llNode * cur = header;
-    while(cur->next!=NULL)
-    {
-        cur = cur->next;
-    } 
-    return cur->val;
+    llNode * newNode = malloc(sizeof(newNode));
+    newNode->val = data;
+    newNode->next = *h;
+    *h = newNode;
 }
 
-int get(llNode * header, int v)
+int pop(llNode** h)
 {
-    llNode * cur = header;
-    for(int i=0;i<v;i++)
-    {
-        if(cur->next==NULL) return 0;
-        cur = cur->next;
-    }
-    return cur->val;
+    int returnVal = (*h)->val;
+    *h = (*h)->next;
+    return returnVal;
 }
 
-void pushEnd(llNode * header, int v)
+int removeindex(llNode** h, int index)
 {
-    llNode * pNode = malloc(sizeof(llNode));
-    pNode->val = v;
-    pNode->next = NULL;
-    while(header->next!=NULL) header = header->next;
-    header->next = pNode;
-}
-
-llNode * pushBeg(llNode * header, int v)
-{
-    llNode * pNode = malloc(sizeof(llNode));
-    pNode->val = v;
-    pNode->next = header;
-    return pNode;
-}
-
-void pop(llNode * header)
-{
-    llNode * cur = header;
-    while(cur->next->next!=NULL)cur = cur->next;
-    cur->next = NULL;
-}
-
-void popIndex(llNode * header,int index)
-{
-    llNode * cur = header;
-    for(int i=0;i<index-1;i++)
+    llNode * cur = *h;
+    for(int i=1;i<index-1;i++)
     {
         cur = cur->next;
     }
-    cur->next = cur->next->next;
+    int returnVal = cur->next->val;
+    cur->next=cur->next->next;
+    return returnVal;
 }
 
 int main()
@@ -80,23 +51,14 @@ int main()
         {
         case 1:
             scanf("%d",&v);
-            h = pushBeg(h,v);
+            push(&h,v);
             break;
         case 2:
-            scanf("%d",&v);
-            pushEnd(h,v);
+            printf("poped val: %d\n",pop(&h));
             break;
         case 3:
-            printf("Last Val -> %d\n",getLast(h));
-            break;
-        case 4:
             scanf("%d",&v);
-            printf("Val at: %d -> %d\n",v,get(h,v));
-        case 5:
-            scanf("%d",&v);
-            popIndex(h,v);
-        case 6:
-            pop(h);    
+            printf("removed val: %d\n",removeindex(&h,v));
         default:
             break;
         }
