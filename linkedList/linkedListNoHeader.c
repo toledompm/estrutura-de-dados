@@ -6,24 +6,24 @@ typedef struct node{
     struct node * next;
 } llNode;
 
-void push(llNode** h, int data)
+void push(llNode** s, int data)
 {
     llNode * newNode = malloc(sizeof(newNode));
     newNode->val = data;
-    newNode->next = *h;
-    *h = newNode;
+    newNode->next = *s;
+    *s = newNode;
 }
 
-int pop(llNode** h)
+int pop(llNode** s)
 {
-    int returnVal = (*h)->val;
-    *h = (*h)->next;
+    int returnVal = (*s)->val;
+    *s = (*s)->next;
     return returnVal;
 }
 
-int removeindex(llNode** h, int index)
+int removeindex(llNode** s, int index)
 {
-    llNode * cur = *h;
+    llNode * cur = *s;
     for(int i=1;i<index-1;i++)
     {
         cur = cur->next;
@@ -36,29 +36,29 @@ int removeindex(llNode** h, int index)
 int main()
 {
     int v, option = 1;
-    llNode * h = malloc(sizeof(llNode));
+    llNode * s = malloc(sizeof(llNode));
     scanf("%d",&v);
 
-    h->val=v;
-    h->next=NULL;
+    s->val=v;
+    s->next=NULL;
 
     while(option != 0)
     {
-        printf("header val -> %d\n",h->val);
+        printf("first node val -> %d\n",s->val);
         scanf("%d",&option);
 
         switch (option)
         {
         case 1:
             scanf("%d",&v);
-            push(&h,v);
+            push(&s,v);
             break;
         case 2:
-            printf("poped val: %d\n",pop(&h));
+            printf("poped val: %d\n",pop(&s));
             break;
         case 3:
             scanf("%d",&v);
-            printf("removed val: %d\n",removeindex(&h,v));
+            printf("removed val: %d\n",removeindex(&s,v));
         default:
             break;
         }
