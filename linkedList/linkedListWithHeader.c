@@ -19,7 +19,7 @@ int pop(llNode * h)
 {
     llNode * tempNode = h->next;
     int popedVal = tempNode->val;
-    h->next = tempNode -> next;
+    h->next = tempNode->next;
     free(tempNode);
     return popedVal;
 }
@@ -66,6 +66,11 @@ int main()
     display(header);
     push(4,header);
     display(header);
-    printf("removed val: %d\n",removeByIndex(header,0));
+    printf("removed val: %d\n",removeByIndex(header,1));
     display(header);
+    push(5,header);
+    display(header);
+    push(6,header);
+    display(header);
+    printf("poped val: %d\n",pop(header));
 }
