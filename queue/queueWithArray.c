@@ -7,7 +7,6 @@ typedef struct q{
     int *list;
 } Queue;
 
-
 int getListSize(int** lst)
 {
     return sizeof(*lst)/sizeof(int);
@@ -21,13 +20,14 @@ int getQueueSize(Queue q)
     {
         return getListSize(&q.list) - q.first + q.last;
     }
+    return q.last-q.first;
 }
 
 //returns 0 for overflown, 1 for valid, 2 for empty
 char* checkQueueStatus(Queue q)
 {
     if (q.first == q.last) return "empty";
-    if (q.last + q.first == getListSize(&q.list)) return "overflown";
+    if (getQueueSize(q) == getListSize(&q.list)) return "overflown";
     return "valid";
 }
 
@@ -41,7 +41,6 @@ int realocQueue(Queue q)
         newList[index] = q.list[qIndex];
         if(qIndex == getListSize(&q.list)-1) qIndex = -1;
     }
-    
 }
 
 void display(Queue q)
